@@ -1,0 +1,99 @@
+﻿@model GeneralViewModel
+@{
+    ViewBag.Title = "Products";
+}
+
+<br />
+<h2 style="text-align:center; ">Products Information</h2>
+<br />
+
+@{
+    if (Model.HVM.products.Count >0)
+    {
+        <table class="table table-striped table-dark table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" style="color:#17a2b8!important;">Seller Id</th>
+                    <th scope="col" style="color:#17a2b8!important;">Name</th>
+                    <th scope="col" style="color:#17a2b8!important;">Product Image</th>
+                    <th scope="col" style="color:#17a2b8!important;">Category</th>
+                    <th scope="col" style="color:#17a2b8!important;">SubCategory</th>
+                    <th scope="col" style="color:#17a2b8!important;">Brand</th>
+                    <th scope="col" style="color:#17a2b8!important;">Color</th>
+                    <th scope="col" style="color:#17a2b8!important;">Price</th>
+                    <th scope="col" style="color:#17a2b8!important;">Status</th>
+                    <th scope="col" style="color:#17a2b8!important;">Expired Date</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                @foreach (Product product in Model.HVM.products)
+                {
+                    <tr id="@product.Id">
+                        <td>@product.FK_seller</td>
+                        <td>@product.Name</td>
+                        <td><img src="@Url.Content(product.Image)" width="150" height="150" /></td>
+                        <td>@product.Subcategory.category.Name</td>
+                        <td>@product.Subcategory.Name</td>
+                        <td>@product.Brand.Name</td>
+                        <td>@product.Color</td>
+                        <td>@product.Price</td>
+                        <td class="@product.Id">@product.Status</td>
+                        <td>@product.Date</td>
+
+                        <td>
+                            <button class="btn-link btn" onclick="confirmRequest(@product.Id)" style="color:#17a2b8!important;">Confirm</button>
+                            <button class="btn-link btn" onclick="confirmDelete(@product.Id)" style="color:#17a2b8!important;">Reject</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-secondary bg-dark" role="alert" style="color:white;">
+            There is no Products to display
+        </div>
+    }
+}
+
+
+
+
+<script>
+ function confirmDelete(id)
+    {
+        var x = confirm("Are you sure ?")
+        if (x)
+        {
+            $.ajax(
+                {
+                    url: "/Admin/DeleteProduct/" + id,
+                    type: "Get",
+                    success: function ()
+                    {
+                        var tr = document.getElementById(id);
+                        tr.remove();
+                    }
+                });
+        }
+ }
+
+ function confirmRequest(id) {
+     var x = confirm("Are you sure ?")
+     if (x) {
+         $.ajax(
+             {
+                 url: "/Admin/ConfirmProduct/" + id,
+                 type: "Get",
+                 success: function ()
+                 {
+                     var td = document.getElementsByClassName(id);
+                     td.innerHTML = "Confirmed";
+                 }
+             });
+     }
+ }
+</script>
+

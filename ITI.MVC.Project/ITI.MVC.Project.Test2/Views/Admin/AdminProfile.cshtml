@@ -1,0 +1,46 @@
+﻿<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+@{
+    ViewBag.Title = "AdminProfile";
+}
+<style>
+    body {
+        background-image: url("../Images/profile.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    #pro1 {
+        height: 100%;
+        padding: 20px;
+        margin-top: 40px;
+        align-content: center;
+        background-color: rgba(0,0,0,.8);
+        border-radius: 5px;
+    }
+</style>
+@* Admin profile *@
+<div class=" container row well profile col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-24 text-light" id="pro1">
+    <div class="col-sm-12" id="pro1_1">
+        <h2>Profile Page</h2>
+        <p><strong>About: </strong> MySouq Admin Profile Page </p>
+        <p><strong>Description: </strong> This page is built for admin to check the status of products and all sellers </p>
+    </div>
+    @* middle *@
+    <div class="col-xs-12 divider text-center col-xs-12 col-sm-6" id="pro1_2">
+        <button class="btn btn-warning btn-block">
+            <span class="fa fa-plus-circle"></span>
+            @Html.ActionLink("Products", "Products", null, new { @class = "text-light" })
+        </button>
+        <button class="btn btn-success btn-block ">
+            <span class="fa fa-user"></span>
+            @Html.ActionLink("Sellers", "Sellers", null, new { @class = "text-light" })
+        </button>
+        <button class="btn btn-info btn-block">
+            <span class="fa fa-home"></span>
+            @Html.ActionLink("Back To Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand navbar-nav nav-item active" })
+        </button>
+    </div>
+</div>
+
+

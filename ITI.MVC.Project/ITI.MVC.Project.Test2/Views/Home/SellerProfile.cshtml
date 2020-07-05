@@ -1,0 +1,116 @@
+﻿@model GeneralViewModel
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+@{
+    ViewBag.Title = "Profile";
+}
+
+<style>
+    body {
+        background-image: url("../Images/profile.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    #pro1 {
+        height: 100%;
+        padding: 20px;
+        margin-top: 40px;
+        align-content: center;
+        background-color: rgba(0,0,0,.8);
+        border-radius: 5px;
+    }
+</style>
+
+@* user profile *@
+<div class=" container row well profile col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-24 text-light" id="pro1">
+    <div class="col-sm-12" id="pro1_1">
+        <h2>Profile Page</h2>
+        <p><strong>Name: </strong>  @Model.HVM.seller.FirstName  </p>
+        <p><strong>Email: </strong> @User.Identity.Name </p>
+    </div>
+    <hr />
+    <div class="col-sm-12" id="pro1_1">
+        <p><strong>Location: </strong> @Model.HVM.seller.Location</p>
+        <p><strong>Store Name: </strong> @Model.HVM.seller.StoreName</p>
+        <p><strong>ID : </strong> @Model.HVM.seller.Id </p>
+        @*<p>
+            <strong>ID front image: </strong>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#idfrontimage">
+                View ID front image
+            </button>
+        </p>
+        <p>
+            <strong>ID back image: </strong>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#idbackimage">
+                View ID back image
+            </button>
+        </p>*@
+        <p><strong>City: </strong> @Model.HVM.seller.City</p>
+        <p><strong>Phone Number: </strong> @Model.HVM.seller.PhoneNumber  </p>
+        <p><strong>Status: </strong>  @Model.HVM.seller.Status </p>
+    </div>
+    <hr />
+    <div class="col-xs-12 divider text-center col-xs-12 col-sm-6" id="pro1_2">
+        @if (Model.HVM.seller.Status == "Confirmed")
+        {
+            <button class="btn btn-success btn-block " type="button">
+                @Html.ActionLink("Add New Product", "Product", "Home", new { area = "" })
+            </button>
+        }
+        
+        <button class="btn btn-info btn-block" type="button">
+            @Html.ActionLink("Home", "Index", "Home", new { area = "" })
+        </button>
+
+    </div>
+
+    <!-- Modal 1 -->
+    @*<div class="modal fade" id="idfrontimage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ID front image</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img src="@Model.HVM.seller.FrontImageFile" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>*@
+    <!-- Modal 2 -->
+    @*<div class="modal fade" id="idbackimage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ID Back image</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img src="@Model.HVM.seller.BackImageFile" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>*@
+    <script>
+    $('#idfrontimage').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+    })
+    $('#idbackimage').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+    })
+    </script>
+</div>
+
+

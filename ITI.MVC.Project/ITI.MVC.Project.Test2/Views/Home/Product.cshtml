@@ -1,0 +1,118 @@
+﻿@model GeneralViewModel
+@{
+    ViewBag.Title = "Product";
+}
+
+
+<style>
+    body {
+        background-image: url("../Images/login.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100%;
+    }
+
+    #con {
+        background-color: rgba(0,0,0,0.8);
+    }
+
+    label {
+        color: white;
+    }
+</style>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script>
+
+    $(function () {
+        $("#CategoryId").change(function () {
+            $.get("/home/GetSubCategoryById", { ID: $("#CategoryId").val() }, function (data) {
+                $("#sub").empty();
+                $.each(data, function (index, row) {
+                    $("#sub").append("<option value = '" + row.Id + "'>" + row.Name + "</option>")
+                });
+            });
+        });
+    });
+
+</script>
+<br />
+<br />
+<div class="container">
+    <div class="d-flex justify-content-center h-100">
+        <div class="card" id="con" style="height:780px; width:500px">
+            @using (Html.BeginForm("Product", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+               @Html.AntiForgeryToken()
+                <br />
+                <h4 style="color:darkturquoise"> &nbsp &nbsp &nbsp Add New Product</h4>
+                <div class="card-body">
+                    <div class="form">
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.HomeVM.product.Name, new { @class = "form-control", placeholder = "Product Name" })
+                            @Html.ValidationMessageFor(m => m.HomeVM.product.Name, null, new { @class = "text-danger" })
+                        </div>
+                        <br />
+
+                        <div class="col-md-10">
+                            @Html.EditorFor(m => m.HomeVM.product.Date, new { htmlAttributes = new { @class = "form-control", placeholder = "Expired Date" } })
+                            @Html.ValidationMessageFor(m => m.HomeVM.product.Date, null, new { @class = "text-danger" })
+                        </div>
+                        <br />
+                        <div class="col-md-10">
+                            @Html.EditorFor(m => m.HomeVM.brand.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "the Brand" } })
+                            @Html.ValidationMessageFor(m => m.HomeVM.brand.Name, null, new { @class = "text-danger" })
+                        </div>
+                        <br />
+                        <div class="col-md-10">
+                            @Html.EditorFor(m => m.HomeVM.product.Price, new { htmlAttributes = new { @class = "form-control", placeholder = "The Price" } })
+                            @Html.ValidationMessageFor(m => m.HomeVM.product.Price, null, new { @class = "text-danger" })
+                        </div>
+                        <br />
+                        <div class="col-md-10">
+                            @Html.EditorFor(m => m.HomeVM.product.Offer, new { htmlAttributes = new { @class = "form-control", placeholder = "offers" } })
+                            @Html.ValidationMessageFor(m => m.HomeVM.product.Offer, null, new { @class = "text-danger" })
+                        </div>
+                        <br />
+                        <div class="col-md-10">
+                            @Html.EditorFor(m => m.HomeVM.product.Quantity, new { htmlAttributes = new { @class = "form-control", placeholder = "Quantity" } })
+                            @Html.ValidationMessageFor(m => m.HomeVM.product.Quantity, null, new { @class = "text-danger" })
+                        </div>
+                        <br />
+                        <div class="col-md-10">
+                            @Html.DropDownList("Category", new SelectList(Model.HVM.categories, "Id", "Name"), "Please Select a Category", new { @class = "form-control", id = "CategoryId" })
+                            @Html.ValidationMessageFor(e => e.HomeVM.product.Subcategory.category.Id, null, new { @class = "text-danger" })
+                        </div>
+
+                        <br />
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(e => e.HomeVM.product.FK_Subcategory, new SelectList(Model.HVM.subcategories, "Id", "Name"), "Please Select a SubCategory", new { @class = "form-control", id = "sub" })
+                            @Html.ValidationMessageFor(e => e.HomeVM.product.FK_Subcategory, null, new { @class = "text-danger" })
+                        </div>
+                        <br />
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.HomeVM.product.image_data, new { Type = "File", @class = "form-control" })
+                            @Html.ValidationMessageFor(e => e.HomeVM.product.image_data, null, new { @class = "text-danger" })
+                        </div>
+                        <br />
+                        <div class="col-md-10">
+                            @Html.EditorFor(m => m.HomeVM.product.Color, new { htmlAttributes = new { @class = "form-control", placeholder = "color" } })
+                            @Html.ValidationMessageFor(m => m.HomeVM.product.Color, null, new { @class = "text-danger" })
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" class="btn btn-info" value="Save and Continue" />
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            }
+                </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

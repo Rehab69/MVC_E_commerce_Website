@@ -1,0 +1,130 @@
+﻿@model GeneralViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>@ViewBag.Title</title>
+    <!--
+        @Styles.Render("~/Content/css")
+    -->
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Style/LayoutStyle.css" rel="stylesheet" />
+</head>
+<body>
+    <!-------------------------------------------navbars---------------------------------------------------->
+    <!--1st navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar2" id="nav1">
+        <div id="nav1-div1">
+            <div class="nav-item active">
+                @Html.ActionLink("Free Shipping", "Index", "Home", new { area = "" }, new { @class = " text-sm-left text-secondary" })
+            </div>
+        </div>
+        <div id="nav1-div2">
+            @if (User.IsInRole("Admin"))
+            {
+                @Html.ActionLink("Admin", "AdminProfile", "Admin", new { area = "" }, new { @class = " text-sm-left text-secondary" })
+                        <span>&nbsp</span> <span class="text-secondary"> | </span>
+            }
+            &nbsp
+            @Html.ActionLink("Create Account", "Register", "Account", new { area = "" }, new { @class = " text-sm-left text-secondary" })
+            &nbsp <span class="text-secondary"> | </span> &nbsp
+            @Html.ActionLink("Sell With Us", "Sell", "Home", new { area = "" }, new { @class = " text-sm-left text-secondary" })
+            <p><a href="~/Views/Account/RegisterAsSeller" class="text-light">  </a></p>
+            &nbsp <span class="text-secondary"> | </span> &nbsp
+            @Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = " text-sm-left text-secondary" })
+            <p><a href="~/Views/Home/About" class="text-light">  </a></p>
+            &nbsp <span class="text-secondary"> | </span> &nbsp
+            @Html.ActionLink("Contact Us", "Contact", "Home", new { area = "" }, new { @class = " text-sm-left text-secondary" })
+            <p><a href="~/Views/Home/" class="text-light">  </a></p>
+            &nbsp <span class="text-secondary"> | </span> &nbsp
+            @Html.ActionLink("Egypt", "Index", "Home", new { area = "" }, new { @class = " text-sm-left text-secondary" })
+            <p><a href="~/Views/Home/Index" class="text-light"></a></p>
+        </div>
+    </nav>
+    <!---------------------------------------------2st navbar----------------------------------------------->
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <div class="collapse navbar-collapse nav2" id="navbarSupportedContent">
+            <div id="nav2-div1">
+                <div>
+                    <i class="fa fa-shopping-bag text-info" style="font-size:24px"></i> &nbsp
+                    @Html.ActionLink("MySouq", "Index", "Home", new { area = "" }, new { @class = "navbar-brand text-info" })
+                </div>
+                <div>
+                    @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand navbar-nav nav-item active" })
+                </div>
+            </div>
+            <div id="nav2-div2">
+                <div>
+                    @using (Html.BeginForm("Search", "Home", FormMethod.Get,new { @class = "form-inline"}))
+                    {
+                        @Html.TextBox("search",null,new { @class = "form-control mr-sm-2" })
+                        <input type="submit" value="Search" class=" btn btn-outline-info my-2 my-sm-0"/>
+                    }
+                    @*<form class="form-inline ">
+                        <input class = " form-control mr-sm-2 " type="search" placeholder="Search" aria-label="Search">
+                        <button class = " btn btn-outline-info my-2 my-sm-0" type="submit">
+                            Search
+                        </button>
+                    </form>*@
+                </div>
+                <div>
+                    <div class="dropdown">
+                        @Html.Partial("_LoginPartial")
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-light " type="button">
+                        <i class="fa fa-shopping-cart text-info" style="font-size:24px"></i>
+                        @Html.ActionLink("Cart", "Cart", "Home", new { area = "" }, new { @class = "text-dark" })
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-------------------------------------------3rd navbar------------------------------------------------->
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark nav3">
+        <div class="collapse navbar-collapse text-light" id="navbarSupportedContent ">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a style="color:#17a2b8!important;" class="nav-link active" href="Home/Index">All Categories</a>
+                </li>
+                @{
+                    foreach (Category category in Model.HVM.categories)
+                    {
+                        <li class="nav-item dropdown">
+
+                            <a style="color:#17a2b8!important;" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@category.Name</a>
+                            <div class="dropdown-menu bg-dark">
+                                @{
+                                    foreach (Subcategory sub in Model.HVM.subcategories.Where(x=>x.Fk_category == category.Id))
+                                    {
+                                        <a class="dropdown-item" href="#" style="color:white;">@sub.Name</a>
+                                    }
+                                }
+                            </div>
+                        </li>
+                    }
+                }
+
+            </ul>
+
+        </div>
+    </nav>
+
+    <!-------------------------------------->
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</body>
+</html>
+

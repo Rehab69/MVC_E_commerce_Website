@@ -1,0 +1,44 @@
+﻿@model GeneralViewModel
+@{
+    ViewBag.Title = "Search";
+}
+
+<br />
+<br />
+<div class="row">
+    @foreach (var product in Model.HVM.products)
+    {
+        <div class="col-md-3 " style="height:20rem; width:15rem;">
+            <div class="thumbnail">
+                <div class="card" style="width: 15rem;">
+                    <img class="card-img-top" src="@Url.Content(product.Image)" width="140" height="140">
+                    <div class="card-body">
+                        <p class="card-text">@product.Name</p>
+                        @if (product.Offer > 0)
+                        {
+                            <strong style="text-decoration: line-through;">
+                                <span>&#36;</span>@product.Price
+                            </strong>
+                            <span>&nbsp &nbsp</span>
+                            var x = product.Price - ((product.Price * product.Offer) / 100);
+                            <strong>
+                                <span> &#36;</span>@x
+                            </strong>
+                        }
+                        else
+                        {
+                            <strong>
+                                <span>&#36;</span>@product.Price
+                            </strong>
+                        }
+                        <br />
+                        <button class="btn" style="background-color:#17a2b8!important; color:white; font-size:large;">
+                            @Html.ActionLink("Add To Card", "AddToCart", "Home", new { id = product.Id, @style = "color:white;" }, null)
+                        </button>
+</div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

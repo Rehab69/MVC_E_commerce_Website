@@ -1,0 +1,104 @@
+﻿@model GeneralViewModel
+@{
+    ViewBag.Title = "Sell";
+}
+
+<style>
+    body {
+        background-image: url("../Images/login.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100%;
+    }
+
+    #con {
+        background-color: rgba(0,0,0,0.8);
+    }
+
+    label {
+        color: white;
+    }
+</style>
+<br />
+<br />
+<div class="container">
+    <div class="d-flex justify-content-center h-100">
+        <div class="card" id="con" style="height:550px; width:500px">
+
+            @using (Html.BeginForm("Sell", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                <br />
+                <h4 style="color:darkturquoise"> &nbsp &nbsp &nbsp Additional Information As A Seller</h4>
+                <div class="card-body">
+                    <div class="form">
+                        @Html.HiddenFor(e => e.seller.FirstName)
+
+                        @Html.HiddenFor(e => e.seller.FK_User)
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.seller.Location, new { @class = "form-control", placeholder = "Location" })
+                            @Html.ValidationMessageFor(m => m.seller.Location, null, new { @class = "text-danger" })
+                        </div>
+                        <br />
+
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.seller.StoreName, new { @class = "form-control", placeholder = "Store Name" })
+                            @Html.ValidationMessageFor(e => e.seller.StoreName, null, new { @class = "text-danger" })
+
+
+                        </div>
+                        <br />
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.seller.PhoneNumber, new { @class = "form-control", placeholder = "Phone Number" })
+                            @Html.ValidationMessageFor(e => e.seller.PhoneNumber, null, new { @class = "text-danger" })
+
+
+                        </div>
+                        <br />
+
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.seller.City, new { @class = "form-control", placeholder = "Enter Your City" })
+                            @Html.ValidationMessageFor(e => e.seller.City, null, new { @class = "text-danger" })
+
+
+                        </div>
+
+                        <br />
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                @Html.Label("Upload yor National ID")
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.seller.FrontImageFile, new { Type = "File", @class = "form-control" })
+                                    @Html.ValidationMessageFor(e => e.seller.FrontImageFile, null, new { @class = "text-danger" })
+                                </div>
+                                <br />
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.seller.BackImageFile, new { Type = "File", @class = "form-control" })
+                                    @Html.ValidationMessageFor(e => e.seller.BackImageFile, null, new { @class = "text-danger" })
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <br />
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" class="btn btn-info" value="Save and Continue" />
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+

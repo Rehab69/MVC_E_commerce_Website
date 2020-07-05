@@ -1,0 +1,32 @@
+﻿body{
+    background-color:black;
+}
+#nav1 {
+    height: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    align-content: space-around;
+}
+#nav1-div1, #nav1-div2 {
+    display: flex;
+    flex-direction: row;
+}
+ 
+/*---------------------------------------*/
+.nav2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content:space-around;
+}
+#nav2-div1, #nav2-div2 {
+    display: flex;
+    flex-direction: row;
+}
+/*---------------------------------------------------*/
+.nav3 {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+

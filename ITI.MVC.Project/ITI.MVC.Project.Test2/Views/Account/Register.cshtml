@@ -1,0 +1,89 @@
+﻿@model ITI.MVC.Project.Test2.ViewModels.GeneralViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<style>
+    body {
+        background-image: url("../Images/login.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100%;
+    }
+
+    #con {
+        background-color: rgba(0,0,0,0.8);
+    }
+
+    label {
+        color: white;
+    }
+</style>
+
+
+<br />
+<div class="container">
+    <div class="d-flex justify-content-center h-100">
+        <div class="card" id="con" style="height:500px; width:500px">
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <br />
+                <h4 style="color:darkturquoise"> &nbsp &nbsp &nbsp Create a new account.</h4>
+                <div class="card-body">
+
+
+                    <div class="form">
+                        <div class="col-md-10">
+                            @Html.LabelFor(m => m.RVM.FirstName, new { @class = "col-md-10 control-label" })
+                            @Html.TextBoxFor(m => m.RVM.FirstName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(e => e.RVM.FirstName, null, new { @class = "text-danger" })
+
+                        </div>
+                        <div class="col-md-10">
+                            @Html.LabelFor(m => m.RVM.LastName, new { @class = "col-md-10 control-label" })
+                            @Html.TextBoxFor(m => m.RVM.LastName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(e => e.RVM.LastName, null, new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-10">
+                            @Html.LabelFor(m => m.RVM.Email, new { @class = "col-md-10 control-label" })
+                            @Html.TextBoxFor(m => m.RVM.Email, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(e => e.RVM.Email, null, new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                        <div class="col-md-10">
+                            @Html.LabelFor(m => m.RVM.Password, new { @class = "col-md-10 control-label" })
+                            @Html.PasswordFor(m => m.RVM.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(e => e.RVM.Password, null, new { @class = "text-danger" })
+                    </div>
+
+                        <div class="col-md-10">
+                            @Html.LabelFor(m => m.RVM.ConfirmPassword, new { @class = "col-md-10 control-label" })
+                            @Html.PasswordFor(m => m.RVM.ConfirmPassword, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(e => e.RVM.ConfirmPassword, null, new { @class = "text-danger" })
+                        </div>
+                    <br />
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" class="btn btn-info" value="Register" />
+
+                        </div>
+                    </div>
+
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
